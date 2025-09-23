@@ -7,46 +7,129 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _nomeController = TextEditingController();
+  final TextEditingController _usuarioController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
 
-  void _entrar() {
-    if (_nomeController.text.isEmpty) return;
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (_) => HomeScreen(usuarioAtual: _nomeController.text),
-      ),
-    );
-  }
+  final corAmarelo = const Color(0xFFFF2200);
+  final corAzulEscuro = const Color(0xFF00358E);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(24),
-        child: Center(
+      backgroundColor: corAzulEscuro,
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.lightbulb, size: 80, color: Colors.blue),
-              SizedBox(height: 20),
-              Text(
-                "Eurofarma Inova",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              // Logo da Eurofarma
+              Image.asset(
+                "assets/images/logo.png",
+                height: 100,
               ),
-              SizedBox(height: 40),
-              TextField(
-                controller: _nomeController,
-                decoration: InputDecoration(
-                  labelText: "Digite seu nome",
-                  border: OutlineInputBorder(),
+              const SizedBox(height: 16),
+
+              // Título
+              Text(
+                "Inovação Eurofarma",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _entrar,
-                child: Text("Entrar"),
+              const SizedBox(height: 40),
+
+              // Campo usuário
+              TextField(
+                controller: _usuarioController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                  hintText: "Usuário",
+                  hintStyle: TextStyle(color: Colors.white70),
+                  prefixIcon: Icon(Icons.person, color: corAmarelo),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Campo senha
+              TextField(
+                controller: _senhaController,
+                obscureText: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.1),
+                  hintText: "Senha",
+                  hintStyle: TextStyle(color: Colors.white70),
+                  prefixIcon: Icon(Icons.lock, color: corAmarelo),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+
+              // Botão login
+              GestureDetector(
+                onTap: () {
+                  String usuario = _usuarioController.text.trim();
+                  if (usuario.isNotEmpty) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            HomeScreen(usuarioAtual: usuario),
+                      ),
+                    );
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [corAmarelo, Colors.orangeAccent],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black45,
+                        blurRadius: 6,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Entrar",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Mensagem de demonstração
+              Text(
+                "⚡ Login de demonstração (senha não validada)",
+                style: TextStyle(color: Colors.white70, fontSize: 12),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

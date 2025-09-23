@@ -376,12 +376,12 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: corAzulEscuro,
         title: Text(
           _selectedIndex == 0
-              ? "Início"
+              ? "Homr"
               : _selectedIndex == 1
-              ? "Feed"
+              ? "Feed de Inovações"
               : _selectedIndex == 2
               ? "Perfil"
-              : "Configurações",
+              : "Cursos",
         ),
       ),
       body: telas[_selectedIndex],
@@ -407,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.school),
-      label: "Cursos",  // Novo item
+      label: "Cursos",
     ),
   ],
 ),
