@@ -1,4 +1,5 @@
 // screens/feed_screen.dart
+import 'package:eurofarma/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/post.dart';
 import 'comments_screen.dart';
@@ -11,6 +12,7 @@ class FeedScreen extends StatefulWidget {
   final List<Post> posts;
   final String usuarioAtual;
   final void Function(List<Post>) onUpdatePosts;
+  
 
   const FeedScreen({
     Key? key,
@@ -26,8 +28,10 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> {
   final Color corAmarelo = const Color(0xFFFF2200);
   final Color corAzulEscuro = const Color(0xFF00358E);
+  
 
   OrdenacaoFeed _ordenacaoAtual = OrdenacaoFeed.maisRecentes;
+
 
   List<Post> get postsOrdenados {
     List<Post> lista = List.from(widget.posts);

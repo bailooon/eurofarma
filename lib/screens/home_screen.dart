@@ -1,4 +1,4 @@
-_selectedIndeximport 'package:eurofarma/screens/curso_detail_screen.dart';
+import 'package:eurofarma/screens/curso_detail_screen.dart';
 import 'package:eurofarma/screens/cursos_screen.dart';
 import 'package:flutter/material.dart';
 import 'feed_screen.dart';
@@ -16,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  List<Map<String, String>> meusCursos = [];
+
 
   List<Post> posts = [
     Post(
@@ -68,6 +70,15 @@ class _HomeScreenState extends State<HomeScreen> {
       _selectedIndex = index;
     });
   }
+
+  void _inscreverCurso(Map<String, String> curso) {
+  setState(() {
+    if (!meusCursos.contains(curso)) {
+      meusCursos.add(curso);
+    }
+  });
+}
+
 
   int _calcularPontosUsuario(String autor) {
     return posts
@@ -385,25 +396,18 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
+
+
       // --- Perfil ---
       ProfileScreen(autor: widget.usuarioAtual, posts: posts),
 
       // --- Cursos ---
-      CursosScreen(cursos: cursos),
+      CursosScreen(cursos: cursos, usuarioAtual: widget.usuarioAtual,),
     ];
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: corAzulEscuro,
-        title: Text(
-          _selectedIndex == 0
-              ? "Home"
-              : _selectedIndex == 1
-              ? "Feed de Inovações"
-              : _selectedIndex == 2
-              ? "Perfil"
-              : "Cursos",
-        ),
       ),
       body: telas[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
