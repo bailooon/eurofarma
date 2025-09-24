@@ -376,7 +376,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: corAzulEscuro,
         title: Text(
           _selectedIndex == 0
-              ? "Homr"
+              ? "Home"
               : _selectedIndex == 1
               ? "Feed de Inovações"
               : _selectedIndex == 2

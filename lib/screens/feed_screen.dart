@@ -1,9 +1,9 @@
 // screens/feed_screen.dart
-import 'package:eurofarma/screens/post_detail_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/post.dart';
 import 'comments_screen.dart';
 import 'profile_screen.dart';
+import 'post_detail_screen.dart';
 
 enum OrdenacaoFeed { maisRecentes, maisCurtidos }
 
@@ -61,7 +61,7 @@ class _FeedScreenState extends State<FeedScreen> {
           usuarioAtual: widget.usuarioAtual,
           onAddComentario: (Comment c) {
             setState(() {
-              post.comentarios.add(c);
+              post.comentarios = List.from(post.comentarios)..add(c);
             });
             widget.onUpdatePosts(widget.posts);
           },
@@ -75,6 +75,99 @@ class _FeedScreenState extends State<FeedScreen> {
       context,
       MaterialPageRoute(
         builder: (_) => ProfileScreen(autor: autor, posts: widget.posts),
+      ),
+    );
+  }
+
+  void _abrirPostDetalhado(Post post) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PostDetailScreen(
+          post: post,
+          usuarioAtual: widget.usuarioAtual,
+          onUpdatePost: (Post p) {
+            setState(() {}); // atualiza feed
+            widget.onUpdatePosts(widget.posts);
+          },
+        ),
+      ),
+    );
+  }
+
+  void _criarNovoPost() {
+    String titulo = "";
+    String descricao = "";
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        insetPadding: EdgeInsets.all(16),
+        child: Container(
+          padding: EdgeInsets.all(16),
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.7, // altura maior
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Novo Post",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 12),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Título",
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (v) => titulo = v,
+              ),
+              SizedBox(height: 12),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    labelText: "Descrição",
+                    border: OutlineInputBorder(),
+                    alignLabelWithHint: true,
+                  ),
+                  maxLines: null, // permite várias linhas
+                  expands: true, // ocupa o espaço disponível
+                  onChanged: (v) => descricao = v,
+                ),
+              ),
+              SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("Cancelar"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (descricao.trim().isEmpty) return;
+                      final novo = Post(
+                        autor: widget.usuarioAtual,
+                        titulo: titulo,
+                        descricao: descricao,
+                        curtidas: 0,
+                        usuariosQueCurtiram: <String>{},
+                        comentarios: [],
+                        data: DateTime.now(),
+                      );
+                      setState(() {
+                        widget.posts.insert(0, novo);
+                      });
+                      widget.onUpdatePosts(widget.posts);
+                      Navigator.pop(context);
+                    },
+                    child: Text("Adicionar"),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -212,7 +305,6 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                     child: Row(
                       children: [
-                        // ícone animado
                         AnimatedScale(
                           scale: jaCurtiu ? 1.3 : 1.0,
                           duration: Duration(milliseconds: 200),
@@ -264,23 +356,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 ),
                 Spacer(),
                 TextButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => PostDetailScreen(
-                          post: post,
-                          usuarioAtual: widget.usuarioAtual,
-                          onUpdatePost: (Post p) {
-                            setState(
-                              () {},
-                            ); // atualiza curtidas e comentários no feed
-                            widget.onUpdatePosts(widget.posts);
-                          },
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: () => _abrirPostDetalhado(post),
                   icon: Icon(
                     Icons.open_in_new,
                     size: 18,
@@ -301,9 +377,9 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: corAzulEscuro,
-      child: Column(
+    return Scaffold(
+      backgroundColor: corAzulEscuro,
+      body: Column(
         children: [
           // menu de ordenação
           Padding(
@@ -364,6 +440,11 @@ class _FeedScreenState extends State<FeedScreen> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: corAmarelo,
+        onPressed: _criarNovoPost,
+        child: Icon(Icons.add, color: corAzulEscuro),
       ),
     );
   }

@@ -22,17 +22,17 @@ class _CommentsScreenState extends State<CommentsScreen> {
   final TextEditingController _controller = TextEditingController();
 
   void _enviarComentario() {
-    final texto = _controller.text.trim();
-    if (texto.isEmpty) return;
+  final texto = _controller.text.trim();
+  if (texto.isEmpty) return;
 
-    final novo = Comment(autor: widget.usuarioAtual, texto: texto);
+  final novo = Comment(autor: widget.usuarioAtual, texto: texto);
+
+  setState(() {
     widget.onAddComentario(novo);
+    _controller.clear();
+  });
+}
 
-    setState(() {
-      widget.post.comentarios.add(novo);
-      _controller.clear();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
                             SizedBox(height: 6),
                             Text(
                               c.formattedDate(),
-                              style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey[600],
+                              ),
                             ),
                           ],
                         ),
@@ -101,7 +104,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
                         hintText: "Escreva um comentário...",
                         filled: true,
                         fillColor: Colors.grey[100],
-                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
@@ -113,12 +119,17 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: corAzulEscuro,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 14,
+                      ),
                     ),
                     onPressed: _enviarComentario,
                     child: Icon(Icons.send, color: Colors.white),
-                  )
+                  ),
                 ],
               ),
             ),

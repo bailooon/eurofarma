@@ -36,17 +36,22 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     widget.onUpdatePost(widget.post);
   }
 
-  void _adicionarComentario() {
-    final texto = _controller.text.trim();
-    if (texto.isEmpty) return;
+ void _adicionarComentario() {
+  final texto = _controller.text.trim();
+  if (texto.isEmpty) return;
 
-    final novo = Comment(autor: widget.usuarioAtual, texto: texto);
-    setState(() {
-      widget.post.comentarios.add(novo);
-      _controller.clear();
-    });
-    widget.onUpdatePost(widget.post);
-  }
+  final novoComentario = Comment(
+    autor: widget.usuarioAtual,
+    texto: texto,
+  );
+
+  setState(() {
+    widget.post.comentarios = List.from(widget.post.comentarios)..add(novoComentario);
+  });
+
+  _controller.clear();
+}
+
 
   @override
   Widget build(BuildContext context) {
