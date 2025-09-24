@@ -23,13 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo da Eurofarma
-              Image.asset(
-                "assets/images/logo.png",
-                height: 100,
-              ),
-              const SizedBox(height: 16),
-
               // Título
               Text(
                 "Inovação Eurofarma",

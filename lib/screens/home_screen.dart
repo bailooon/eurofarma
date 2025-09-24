@@ -1,3 +1,4 @@
+_selectedIndeximport 'package:eurofarma/screens/curso_detail_screen.dart';
 import 'package:eurofarma/screens/cursos_screen.dart';
 import 'package:flutter/material.dart';
 import 'feed_screen.dart';
@@ -40,16 +41,25 @@ class _HomeScreenState extends State<HomeScreen> {
       'titulo': 'Inovação em Processos',
       'descricao': 'Aprenda a otimizar processos internos na empresa.',
       'cargaHoraria': '4h',
+      'conteudo':
+          'Em um mercado em constante evolução, a capacidade de inovar em processos não é mais um diferencial, mas uma necessidade para a sobrevivência e o crescimento do negócio. Este curso é um mergulho profundo nas metodologias e ferramentas que permitem redesenhar, otimizar e revolucionar os fluxos de trabalho da sua organização. Prepare-se para transformar processos tradicionais em sistemas inteligentes e eficientes, gerando mais valor para o cliente, reduzindo custos e capacitando sua equipe para liderar a transformação digital de dentro para fora.',
+      'youtubeLink': 'http://youtube.com/watch?v=W-0vKtZnJk8',
     },
     {
       'titulo': 'Gestão de Projetos Ágeis',
       'descricao': 'Curso rápido de metodologias ágeis aplicadas à inovação.',
       'cargaHoraria': '6h',
+      'conteudo':
+          'Diga adeus aos cronogramas rígidos e às entregas que não atendem mais às necessidades do cliente. O curso de Gestão de Projetos Ágeis é a sua porta de entrada para um universo dinâmico, colaborativo e focado em resultados. Desenvolvido para líderes e equipes que buscam mais velocidade e adaptabilidade, este programa prático descomplica o universo ágil. Ao final deste curso, você estará apto a liderar projetos complexos, responder rapidamente às mudanças do mercado e entregar produtos e serviços que encantam seus clientes, garantindo o máximo de valor em cada entrega.',
+      'youtubeLink': 'http://youtube.com/watch?v=W-0vKtZnJk8',
     },
     {
       'titulo': 'Design Thinking',
       'descricao': 'Crie soluções inovadoras com foco no usuário.',
       'cargaHoraria': '3h',
+      'conteudo':
+          'E se você pudesse resolver problemas complexos com a mesma abordagem criativa e empática de um designer? O Design Thinking é uma metodologia poderosa que coloca as pessoas no centro do processo de inovação para gerar soluções verdadeiramente desejáveis, viáveis e factíveis. Saia da teoria e venha colocar a mão na massa. Este curso é ideal para empreendedores, gestores e qualquer profissional que deseje criar produtos, serviços e experiências que as pessoas amam.',
+      'youtubeLink': 'http://youtube.com/watch?v=W-0vKtZnJk8',
     },
   ];
 
@@ -295,52 +305,63 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: cursos.length,
                       itemBuilder: (context, index) {
                         final curso = cursos[index];
-                        return Container(
-                          margin: EdgeInsets.symmetric(vertical: 6),
-                          padding: EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                corAmarelo.withOpacity(0.7),
-                                Colors.orangeAccent,
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CursoDetalheScreen(curso: curso),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 6),
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  corAmarelo.withOpacity(0.7),
+                                  Colors.orangeAccent,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
                               ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
                             ),
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                curso['titulo']!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  curso['titulo']!,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                curso['descricao']!,
-                                style: TextStyle(color: Colors.white70),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                "Carga horária: ${curso['cargaHoraria']}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                SizedBox(height: 4),
+                                Text(
+                                  curso['descricao']!,
+                                  style: TextStyle(color: Colors.white70),
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 4),
+                                Text(
+                                  "Carga horária: ${curso['cargaHoraria']}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -386,31 +407,19 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: telas[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-  currentIndex: _selectedIndex,
-  onTap: _onItemTapped,
-  type: BottomNavigationBarType.fixed,
-  selectedItemColor: corAmarelo,
-  unselectedItemColor: Colors.grey[400],
-  backgroundColor: corAzulEscuro,
-  items: const [
-    BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: "Início",
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.list),
-      label: "Feed",
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: "Perfil",
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.school),
-      label: "Cursos",
-    ),
-  ],
-),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: corAmarelo,
+        unselectedItemColor: Colors.grey[400],
+        backgroundColor: corAzulEscuro,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Início"),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: "Feed"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: "Cursos"),
+        ],
+      ),
     );
   }
 }
