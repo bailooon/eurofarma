@@ -19,8 +19,8 @@ class PostDetailScreen extends StatefulWidget {
 }
 
 class _PostDetailScreenState extends State<PostDetailScreen> {
-  final Color corAmarelo = const Color(0xFFFF2200);
-  final Color corAzulEscuro = const Color(0xFF00358E);
+  final Color corAmarelo = const Color(0xFFFEED01);
+  final Color corAzulEscuro = const Color(0xFF004387);
   final TextEditingController _controller = TextEditingController();
 
   void _toggleLike() {
@@ -36,26 +36,25 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     widget.onUpdatePost(widget.post);
   }
 
- void _adicionarComentario() {
-  final texto = _controller.text.trim();
-  if (texto.isEmpty) return;
+  void _adicionarComentario() {
+    final texto = _controller.text.trim();
+    if (texto.isEmpty) return;
 
-  final novoComentario = Comment(
-    autor: widget.usuarioAtual,
-    texto: texto,
-  );
+    final novoComentario = Comment(autor: widget.usuarioAtual, texto: texto);
 
-  setState(() {
-    widget.post.comentarios = List.from(widget.post.comentarios)..add(novoComentario);
-  });
+    setState(() {
+      widget.post.comentarios = List.from(widget.post.comentarios)
+        ..add(novoComentario);
+    });
 
-  _controller.clear();
-}
-
+    _controller.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final jaCurtiu = widget.post.usuariosQueCurtiram.contains(widget.usuarioAtual);
+    final jaCurtiu = widget.post.usuariosQueCurtiram.contains(
+      widget.usuarioAtual,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -73,13 +72,15 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   children: [
                     CircleAvatar(
                       radius: 20,
-                      backgroundColor: corAmarelo.withOpacity(0.2),
+                      backgroundColor: corAzulEscuro.withOpacity(0.2),
                       child: Text(
                         widget.post.autor.isNotEmpty
                             ? widget.post.autor[0].toUpperCase()
                             : "?",
                         style: TextStyle(
-                            color: corAzulEscuro, fontWeight: FontWeight.bold),
+                          color: corAzulEscuro,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -89,12 +90,17 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         Text(
                           widget.post.autor,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: corAzulEscuro),
+                            fontWeight: FontWeight.bold,
+                            color: corAzulEscuro,
+                          ),
                         ),
                         Text(
                           "${widget.post.data.day.toString().padLeft(2, '0')}/${widget.post.data.month.toString().padLeft(2, '0')}/${widget.post.data.year}",
-                          style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                        )
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 12,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -104,13 +110,16 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   Text(
                     widget.post.titulo,
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(221, 0, 0, 0),
+                    ),
                   ),
                 if (widget.post.titulo.isNotEmpty) SizedBox(height: 8),
-                Text(widget.post.descricao,
-                    style: TextStyle(fontSize: 16, color: Colors.black87)),
+                Text(
+                  widget.post.descricao,
+                  style: TextStyle(fontSize: 16, color: Colors.black87),
+                ),
                 SizedBox(height: 16),
                 // Curtidas
                 Row(
@@ -119,11 +128,15 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       onTap: _toggleLike,
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
-                          color: jaCurtiu
-                              ? corAmarelo.withOpacity(0.12)
-                              : Colors.transparent,
+                          color:
+                              jaCurtiu
+                                  ? corAmarelo.withOpacity(0.12)
+                                  : Colors.transparent,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
@@ -134,19 +147,29 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                               curve: Curves.easeOutBack,
                               child: AnimatedSwitcher(
                                 duration: Duration(milliseconds: 200),
-                                transitionBuilder: (child, anim) =>
-                                    ScaleTransition(scale: anim, child: child),
+                                transitionBuilder:
+                                    (child, anim) => ScaleTransition(
+                                      scale: anim,
+                                      child: child,
+                                    ),
                                 child: Icon(
-                                  jaCurtiu ? Icons.favorite : Icons.favorite_border,
+                                  jaCurtiu
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   key: ValueKey<bool>(jaCurtiu),
-                                  color: jaCurtiu ? Colors.pinkAccent : corAzulEscuro,
+                                  color:
+                                      jaCurtiu
+                                          ? Colors.pinkAccent
+                                          : corAzulEscuro,
                                   size: 26,
                                 ),
                               ),
                             ),
                             SizedBox(width: 8),
-                            Text("${widget.post.curtidas}",
-                                style: TextStyle(color: Colors.black87)),
+                            Text(
+                              "${widget.post.curtidas}",
+                              style: TextStyle(color: Colors.black87),
+                            ),
                           ],
                         ),
                       ),
@@ -155,9 +178,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 ),
                 SizedBox(height: 16),
                 Divider(),
-                Text("Comentários",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(
+                  "Comentários",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
                 SizedBox(height: 8),
                 ...widget.post.comentarios.map((c) {
                   return Padding(
@@ -171,8 +195,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           style: TextStyle(color: Colors.black87),
                         ),
                       ),
-                      title: Text(c.autor,
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      title: Text(
+                        c.autor,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       subtitle: Text(c.texto),
                     ),
                   );
@@ -206,8 +232,12 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: corAzulEscuro,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
                     ),
                     child: Icon(Icons.send, color: Colors.white),
                   ),

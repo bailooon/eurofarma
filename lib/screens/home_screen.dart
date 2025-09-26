@@ -18,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   List<Map<String, String>> meusCursos = [];
 
-
   List<Post> posts = [
     Post(
       titulo: "Sistema de Logística Inteligente",
@@ -72,13 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _inscreverCurso(Map<String, String> curso) {
-  setState(() {
-    if (!meusCursos.contains(curso)) {
-      meusCursos.add(curso);
-    }
-  });
-}
-
+    setState(() {
+      if (!meusCursos.contains(curso)) {
+        meusCursos.add(curso);
+      }
+    });
+  }
 
   int _calcularPontosUsuario(String autor) {
     return posts
@@ -102,13 +100,15 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    final rankingEntries = pontosPorAutor.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
+    final rankingEntries =
+        pontosPorAutor.entries.toList()
+          ..sort((a, b) => b.value.compareTo(a.value));
 
-    final rankingTop10 = rankingEntries
-        .take(10)
-        .map((e) => {'autor': e.key, 'pontos': e.value})
-        .toList();
+    final rankingTop10 =
+        rankingEntries
+            .take(10)
+            .map((e) => {'autor': e.key, 'pontos': e.value})
+            .toList();
 
     final jaIncluido = rankingTop10.any(
       (e) => e['autor'] == widget.usuarioAtual,
@@ -127,14 +127,14 @@ class _HomeScreenState extends State<HomeScreen> {
     String medalha = _getMedalha(pontos);
     List<Map<String, dynamic>> ranking = _getRanking();
 
-    final corAmarelo = Color(0xFFFF2200); // amarelo vibrante
-    final corAzulEscuro = Color(0xFF00358E); // azul escuro
+    final corAmarelo = Color(0xFFFEED01); // amarelo vibrante
+    final corAzulEscuro = Color(0xFF004387); // azul escuro
 
     final telas = [
       // --- Home moderna ---
       SingleChildScrollView(
         child: Container(
-          color: corAzulEscuro,
+          color: corAmarelo,
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
@@ -144,7 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(24.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [corAmarelo, Colors.orangeAccent],
+                    colors: [
+                      corAzulEscuro,
+                      const Color.fromARGB(255, 11, 0, 61),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -236,9 +239,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             horizontal: 12,
                           ),
                           decoration: BoxDecoration(
-                            color: isUsuarioAtual
-                                ? corAmarelo.withOpacity(0.3)
-                                : Colors.grey[100],
+                            color:
+                                isUsuarioAtual
+                                    ? corAzulEscuro.withOpacity(0.3)
+                                    : Colors.grey[100],
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
@@ -248,31 +252,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "#${index + 1}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: isUsuarioAtual
-                                      ? corAzulEscuro
-                                      : Colors.black,
+                                  color:
+                                      isUsuarioAtual
+                                          ? corAzulEscuro
+                                          : Colors.black,
                                 ),
                               ),
                               Text(
                                 item['autor'],
                                 style: TextStyle(
-                                  fontWeight: isUsuarioAtual
-                                      ? FontWeight.bold
-                                      : null,
-                                  color: isUsuarioAtual
-                                      ? corAzulEscuro
-                                      : Colors.black,
+                                  fontWeight:
+                                      isUsuarioAtual ? FontWeight.bold : null,
+                                  color:
+                                      isUsuarioAtual
+                                          ? corAzulEscuro
+                                          : Colors.black,
                                 ),
                               ),
                               Text(
                                 "${item['pontos']} pts",
                                 style: TextStyle(
-                                  fontWeight: isUsuarioAtual
-                                      ? FontWeight.bold
-                                      : null,
-                                  color: isUsuarioAtual
-                                      ? corAzulEscuro
-                                      : Colors.black,
+                                  fontWeight:
+                                      isUsuarioAtual ? FontWeight.bold : null,
+                                  color:
+                                      isUsuarioAtual
+                                          ? corAzulEscuro
+                                          : Colors.black,
                                 ),
                               ),
                             ],
@@ -321,8 +326,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    CursoDetalheScreen(curso: curso),
+                                builder:
+                                    (context) =>
+                                        CursoDetalheScreen(curso: curso),
                               ),
                             );
                           },
@@ -332,8 +338,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  corAmarelo.withOpacity(0.7),
-                                  Colors.orangeAccent,
+                                  corAzulEscuro.withOpacity(0.7),
+                                  const Color.fromARGB(255, 4, 1, 49),
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -396,19 +402,15 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-
-
       // --- Perfil ---
       ProfileScreen(autor: widget.usuarioAtual, posts: posts),
 
       // --- Cursos ---
-      CursosScreen(cursos: cursos, usuarioAtual: widget.usuarioAtual,),
+      CursosScreen(cursos: cursos, usuarioAtual: widget.usuarioAtual),
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: corAzulEscuro,
-      ),
+      appBar: AppBar(backgroundColor: corAzulEscuro),
       body: telas[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

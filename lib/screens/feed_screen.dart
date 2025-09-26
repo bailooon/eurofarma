@@ -1,5 +1,4 @@
 // screens/feed_screen.dart
-import 'package:eurofarma/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/post.dart';
 import 'comments_screen.dart';
@@ -12,7 +11,6 @@ class FeedScreen extends StatefulWidget {
   final List<Post> posts;
   final String usuarioAtual;
   final void Function(List<Post>) onUpdatePosts;
-  
 
   const FeedScreen({
     Key? key,
@@ -26,12 +24,10 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-  final Color corAmarelo = const Color(0xFFFF2200);
-  final Color corAzulEscuro = const Color(0xFF00358E);
-  
+  final Color corAmarelo = const Color(0xFFFEED01);
+  final Color corAzulEscuro = const Color(0xFF004387);
 
   OrdenacaoFeed _ordenacaoAtual = OrdenacaoFeed.maisRecentes;
-
 
   List<Post> get postsOrdenados {
     List<Post> lista = List.from(widget.posts);
@@ -60,16 +56,17 @@ class _FeedScreenState extends State<FeedScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => CommentsScreen(
-          post: post,
-          usuarioAtual: widget.usuarioAtual,
-          onAddComentario: (Comment c) {
-            setState(() {
-              post.comentarios = List.from(post.comentarios)..add(c);
-            });
-            widget.onUpdatePosts(widget.posts);
-          },
-        ),
+        builder:
+            (_) => CommentsScreen(
+              post: post,
+              usuarioAtual: widget.usuarioAtual,
+              onAddComentario: (Comment c) {
+                setState(() {
+                  post.comentarios = List.from(post.comentarios)..add(c);
+                });
+                widget.onUpdatePosts(widget.posts);
+              },
+            ),
       ),
     );
   }
@@ -87,14 +84,15 @@ class _FeedScreenState extends State<FeedScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => PostDetailScreen(
-          post: post,
-          usuarioAtual: widget.usuarioAtual,
-          onUpdatePost: (Post p) {
-            setState(() {}); // atualiza feed
-            widget.onUpdatePosts(widget.posts);
-          },
-        ),
+        builder:
+            (_) => PostDetailScreen(
+              post: post,
+              usuarioAtual: widget.usuarioAtual,
+              onUpdatePost: (Post p) {
+                setState(() {}); // atualiza feed
+                widget.onUpdatePosts(widget.posts);
+              },
+            ),
       ),
     );
   }
@@ -104,75 +102,77 @@ class _FeedScreenState extends State<FeedScreen> {
     String descricao = "";
     showDialog(
       context: context,
-      builder: (context) => Dialog(
-        insetPadding: EdgeInsets.all(16),
-        child: Container(
-          padding: EdgeInsets.all(16),
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * 0.7, // altura maior
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Novo Post",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      builder:
+          (context) => Dialog(
+            insetPadding: EdgeInsets.all(16),
+            child: Container(
+              padding: EdgeInsets.all(16),
+              constraints: BoxConstraints(
+                maxHeight:
+                    MediaQuery.of(context).size.height * 0.7, // altura maior
               ),
-              SizedBox(height: 12),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: "Título",
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: (v) => titulo = v,
-              ),
-              SizedBox(height: 12),
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: "Descrição",
-                    border: OutlineInputBorder(),
-                    alignLabelWithHint: true,
-                  ),
-                  maxLines: null, // permite várias linhas
-                  expands: true, // ocupa o espaço disponível
-                  onChanged: (v) => descricao = v,
-                ),
-              ),
-              SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text("Cancelar"),
+                  Text(
+                    "Novo Post",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (descricao.trim().isEmpty) return;
-                      final novo = Post(
-                        autor: widget.usuarioAtual,
-                        titulo: titulo,
-                        descricao: descricao,
-                        curtidas: 0,
-                        usuariosQueCurtiram: <String>{},
-                        comentarios: [],
-                        data: DateTime.now(),
-                      );
-                      setState(() {
-                        widget.posts.insert(0, novo);
-                      });
-                      widget.onUpdatePosts(widget.posts);
-                      Navigator.pop(context);
-                    },
-                    child: Text("Adicionar"),
+                  SizedBox(height: 12),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Título",
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (v) => titulo = v,
+                  ),
+                  SizedBox(height: 12),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: "Descrição",
+                        border: OutlineInputBorder(),
+                        alignLabelWithHint: true,
+                      ),
+                      maxLines: null, // permite várias linhas
+                      expands: true, // ocupa o espaço disponível
+                      onChanged: (v) => descricao = v,
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text("Cancelar"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (descricao.trim().isEmpty) return;
+                          final novo = Post(
+                            autor: widget.usuarioAtual,
+                            titulo: titulo,
+                            descricao: descricao,
+                            curtidas: 0,
+                            usuariosQueCurtiram: <String>{},
+                            comentarios: [],
+                            data: DateTime.now(),
+                          );
+                          setState(() {
+                            widget.posts.insert(0, novo);
+                          });
+                          widget.onUpdatePosts(widget.posts);
+                          Navigator.pop(context);
+                        },
+                        child: Text("Adicionar"),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
     );
   }
 
@@ -187,17 +187,18 @@ class _FeedScreenState extends State<FeedScreen> {
     final recent = post.comentarios.reversed.take(2).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: recent.map((c) {
-        return Padding(
-          padding: const EdgeInsets.only(top: 6.0),
-          child: Text(
-            "${c.autor}: ${c.texto}",
-            style: TextStyle(color: Colors.grey[800], fontSize: 13),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        );
-      }).toList(),
+      children:
+          recent.map((c) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 6.0),
+              child: Text(
+                "${c.autor}: ${c.texto}",
+                style: TextStyle(color: Colors.grey[800], fontSize: 13),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            );
+          }).toList(),
     );
   }
 
@@ -226,7 +227,7 @@ class _FeedScreenState extends State<FeedScreen> {
               children: [
                 CircleAvatar(
                   radius: 20,
-                  backgroundColor: corAmarelo.withOpacity(0.2),
+                  backgroundColor: corAzulEscuro.withOpacity(0.2),
                   child: Text(
                     post.autor.isNotEmpty ? post.autor[0].toUpperCase() : "?",
                     style: TextStyle(
@@ -260,9 +261,10 @@ class _FeedScreenState extends State<FeedScreen> {
                   ),
                 ),
                 PopupMenuButton<String>(
-                  itemBuilder: (context) => [
-                    PopupMenuItem(value: "report", child: Text("Reportar")),
-                  ],
+                  itemBuilder:
+                      (context) => [
+                        PopupMenuItem(value: "report", child: Text("Reportar")),
+                      ],
                   onSelected: (v) {},
                 ),
               ],
@@ -302,9 +304,10 @@ class _FeedScreenState extends State<FeedScreen> {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     decoration: BoxDecoration(
-                      color: jaCurtiu
-                          ? corAmarelo.withOpacity(0.12)
-                          : Colors.transparent,
+                      color:
+                          jaCurtiu
+                              ? corAzulEscuro.withOpacity(0.12)
+                              : Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -315,14 +318,14 @@ class _FeedScreenState extends State<FeedScreen> {
                           curve: Curves.easeOutBack,
                           child: AnimatedSwitcher(
                             duration: Duration(milliseconds: 200),
-                            transitionBuilder: (child, anim) =>
-                                ScaleTransition(scale: anim, child: child),
+                            transitionBuilder:
+                                (child, anim) =>
+                                    ScaleTransition(scale: anim, child: child),
                             child: Icon(
                               jaCurtiu ? Icons.favorite : Icons.favorite_border,
                               key: ValueKey<bool>(jaCurtiu),
-                              color: jaCurtiu
-                                  ? Colors.pinkAccent
-                                  : corAzulEscuro,
+                              color:
+                                  jaCurtiu ? Colors.pinkAccent : corAzulEscuro,
                               size: 22,
                             ),
                           ),
