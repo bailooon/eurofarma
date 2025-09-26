@@ -11,8 +11,8 @@ class AdmVision extends StatefulWidget {
 }
 
 class _AdmVisionState extends State<AdmVision> {
-  final Color corAmarelo = const Color(0xFFFF2200);
-  final Color corAzulEscuro = const Color(0xFF00358E);
+  final Color corAmarelo = const Color(0xFFFEED01);
+  final Color corAzulEscuro = const Color(0xFF004387);
 
   @override
   Widget build(BuildContext context) {

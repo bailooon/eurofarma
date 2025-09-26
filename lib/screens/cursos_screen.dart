@@ -27,7 +27,7 @@ class _CursosScreenState extends State<CursosScreen> {
     Map<String, String> curso, {
     bool mostrarBotaoInscricao = true,
   }) {
-    final corAmarelo = Color(0xFFFF2200);
+    final corAmarelo = Color(0xFFFEED01);
 
     return InkWell(
       onTap: () {
@@ -65,17 +65,20 @@ class _CursosScreenState extends State<CursosScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
             ),
             SizedBox(height: 4),
-            Text(curso['descricao']!, style: TextStyle(color: Colors.white70)),
+            Text(
+              curso['descricao']!,
+              style: TextStyle(color: const Color.fromARGB(179, 0, 0, 0)),
+            ),
             SizedBox(height: 8),
             Text(
               "Carga horária: ${curso['cargaHoraria']!}",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
             ),
             if (mostrarBotaoInscricao)
@@ -101,8 +104,8 @@ class _CursosScreenState extends State<CursosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final corAzulEscuro = Color(0xFF00358E);
-    final corAmarelo = Color(0xFFFF2200);
+    final corAzulEscuro = Color(0xFF004387);
+    final corAmarelo = Color(0xFFFEED01);
 
     return Scaffold(
       backgroundColor: corAzulEscuro,
@@ -110,7 +113,7 @@ class _CursosScreenState extends State<CursosScreen> {
         backgroundColor: corAmarelo,
         title: Text("Cursos Disponíveis"),
         titleTextStyle: TextStyle(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 0, 0, 0),
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
@@ -132,17 +135,20 @@ class _CursosScreenState extends State<CursosScreen> {
             SizedBox(height: 8),
             meusCursos.isEmpty
                 ? Text(
-                    "Você ainda não se inscreveu em nenhum curso.",
-                    style: TextStyle(color: Colors.white70),
-                  )
+                  "Você ainda não se inscreveu em nenhum curso.",
+                  style: TextStyle(color: Colors.white70),
+                )
                 : Column(
-                    children: meusCursos
-                        .map(
-                          (c) =>
-                              _buildCursoCard(c, mostrarBotaoInscricao: false),
-                        )
-                        .toList(),
-                  ),
+                  children:
+                      meusCursos
+                          .map(
+                            (c) => _buildCursoCard(
+                              c,
+                              mostrarBotaoInscricao: false,
+                            ),
+                          )
+                          .toList(),
+                ),
             SizedBox(height: 24),
             Text(
               "Todos os Cursos",

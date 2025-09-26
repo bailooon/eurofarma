@@ -19,20 +19,22 @@ class CursoDetalheScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final corAmarelo = Color(0xFFFF2200);
-    final corAzulEscuro = Color(0xFF00358E);
+    final corAmarelo = Color(0xFFFEED01);
+    final corAzulEscuro = Color(0xFF004387);
 
     return Scaffold(
-      backgroundColor: corAzulEscuro,
+      backgroundColor: corAmarelo,
       appBar: AppBar(
-        backgroundColor: corAmarelo,
+        backgroundColor: corAzulEscuro,
         title: Text(curso['titulo']!),
         titleTextStyle: TextStyle(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 255, 255, 255),
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        iconTheme: IconThemeData(color: Colors.white), // Cor da seta de voltar
+        iconTheme: IconThemeData(
+          color: const Color.fromARGB(255, 255, 255, 255),
+        ), // Cor da seta de voltar
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -44,7 +46,7 @@ class CursoDetalheScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
             ),
             SizedBox(height: 16),
@@ -61,24 +63,30 @@ class CursoDetalheScreen extends StatelessWidget {
               curso['conteudo']!, // Usaremos um novo campo 'conteudo'
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.white70,
+                color: const Color.fromARGB(179, 0, 0, 0),
                 height: 1.5, // Melhora a legibilidade
               ),
             ),
             SizedBox(height: 24),
             Center(
               child: ElevatedButton.icon(
-                icon: Icon(Icons.play_circle_fill, color: Colors.white),
+                icon: Icon(
+                  Icons.play_circle_fill,
+                  color: const Color.fromARGB(255, 255, 0, 0),
+                ),
                 label: Text(
                   "Assistir Aula no YouTube",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 16,
+                  ),
                 ),
                 onPressed: () {
                   // Chama a função para abrir o link ao pressionar
                   _launchURL(curso['youtubeLink']!);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: corAmarelo,
+                  backgroundColor: corAzulEscuro,
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
