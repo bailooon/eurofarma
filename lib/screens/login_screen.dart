@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
+import 'adm_vision.dart';
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -78,9 +79,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (usuario.isNotEmpty) {
                     Navigator.pushReplacement(
                       context,
+
                       MaterialPageRoute(
-                        builder: (context) =>
-                            HomeScreen(usuarioAtual: usuario),
+                        builder: (context) {
+                          if (usuario.toLowerCase() == 'admin') {
+                            return AdmVision();
+                          } else {
+                            return HomeScreen(usuarioAtual: usuario);
+                          }
+                        },
+
                       ),
                     );
                   }
