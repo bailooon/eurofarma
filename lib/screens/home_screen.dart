@@ -34,6 +34,57 @@ class _HomeScreenState extends State<HomeScreen> {
       descricao: "Chatbot interno para suporte rápido.",
       autor: "Carlos Pereira",
     ),
+    Post(
+      titulo: "Dashboard de Análises em Tempo Real",
+      descricao: "Painel interativo com métricas de performance instantâneas.",
+      autor: "Ana Souza",
+    ),
+    Post(
+      titulo: "Sistema de Reconhecimento de Imagens",
+      descricao:
+          "Ferramenta que identifica produtos e objetos em fotos automaticamente.",
+      autor: "Lucas Martins",
+    ),
+    Post(
+      titulo: "Automação de Processos Financeiros",
+      descricao:
+          "Rotinas de conciliação bancária e emissão de relatórios automatizadas.",
+      autor: "Fernanda Lima",
+    ),
+    Post(
+      titulo: "Plataforma de Treinamento Gamificado",
+      descricao:
+          "Cursos internos com desafios, pontos e recompensas para engajar colaboradores.",
+      autor: "João Almeida",
+    ),
+    Post(
+      titulo: "Integração com Assistentes de Voz",
+      descricao:
+          "Comandos por voz para acessar informações e executar tarefas corporativas.",
+      autor: "Mariana Costa",
+    ),
+    Post(
+      titulo: "App de Gestão de Projetos Colaborativos",
+      descricao:
+          "Organização de tarefas, prazos e equipes em um único espaço digital.",
+      autor: "Rafael Silva",
+    ),
+    Post(
+      titulo: "Sistema de Monitoramento Energético",
+      descricao:
+          "Ferramenta que analisa e sugere redução de consumo em tempo real.",
+      autor: "Beatriz Santos",
+    ),
+    Post(
+      titulo: "Plataforma de Feedback Instantâneo",
+  descricao: "Ferramenta para coletar e analisar opiniões de clientes em tempo real.",
+      autor: "Beatriz Santos",
+    ),
+    Post(
+  titulo: "Assistente Preditivo de Vendas",
+  descricao: "Sistema que sugere próximos passos com base no histórico de negociações.",
+  autor: "Mariana Costa",
+),
   ];
 
   // Lista de cursos recomendados

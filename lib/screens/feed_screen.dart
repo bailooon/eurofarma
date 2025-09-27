@@ -260,13 +260,6 @@ class _FeedScreenState extends State<FeedScreen> {
                     ],
                   ),
                 ),
-                PopupMenuButton<String>(
-                  itemBuilder:
-                      (context) => [
-                        PopupMenuItem(value: "report", child: Text("Reportar")),
-                      ],
-                  onSelected: (v) {},
-                ),
               ],
             ),
 

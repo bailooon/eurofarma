@@ -29,7 +29,7 @@ class Post {
     required this.titulo,
     required this.descricao,
     required this.autor,
-    this.curtidas = 0,
+    this.curtidas = 5,
     Set<String>? usuariosQueCurtiram,
     List<Comment>? comentarios,
     DateTime? data,
