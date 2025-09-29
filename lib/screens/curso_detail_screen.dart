@@ -1,7 +1,7 @@
 // curso_detalhe_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class CursoDetalheScreen extends StatelessWidget {
   // Recebe os dados do curso que foi clicado
@@ -10,12 +10,12 @@ class CursoDetalheScreen extends StatelessWidget {
   CursoDetalheScreen({required this.curso});
 
   // Função para abrir o link do YouTube
-  Future<void> _launchURL(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(uri)) {
-      throw 'Não foi possível abrir $url';
-    }
-  }
+  // Future<void> _launchURL(String url) async {
+  //   final Uri uri = Uri.parse(url);
+  //   if (!await launchUrl(uri)) {
+  //     throw 'Não foi possível abrir $url';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class CursoDetalheScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   // Chama a função para abrir o link ao pressionar
-                  _launchURL(curso['youtubeLink']!);
+                  // _launchURL(curso['youtubeLink']!);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: corAzulEscuro,
