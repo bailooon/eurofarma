@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'home_screen.dart'; // Importe para ter acesso às cores
+import 'login_screen.dart'; // Importe a tela de login
 
 class AdmVision extends StatefulWidget {
   const AdmVision({Key? key}) : super(key: key);
@@ -25,6 +26,20 @@ class _AdmVisionState extends State<AdmVision> {
             "Painel de Administração",
             style: TextStyle(color: Colors.white),
           ),
+          actions: [
+            // Botão de logout
+            IconButton(
+              icon: Icon(Icons.logout, color: Colors.white),
+              tooltip: 'Sair',
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+            ),
+          ],
           bottom: TabBar(
             labelColor: corAmarelo,
             unselectedLabelColor: Colors.white,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'feed_screen.dart';
 import 'profile_screen.dart';
 import '../models/post.dart';
+import 'login_screen.dart'; 
 
 class HomeScreen extends StatefulWidget {
   final String usuarioAtual;
@@ -77,14 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     Post(
       titulo: "Plataforma de Feedback Instantâneo",
-  descricao: "Ferramenta para coletar e analisar opiniões de clientes em tempo real.",
+      descricao: "Ferramenta para coletar e analisar opiniões de clientes em tempo real.",
       autor: "Beatriz Santos",
     ),
     Post(
-  titulo: "Assistente Preditivo de Vendas",
-  descricao: "Sistema que sugere próximos passos com base no histórico de negociações.",
-  autor: "Mariana Costa",
-),
+      titulo: "Assistente Preditivo de Vendas",
+      descricao: "Sistema que sugere próximos passos com base no histórico de negociações.",
+      autor: "Mariana Costa",
+    ),
   ];
 
   // Lista de cursos recomendados
@@ -461,7 +462,21 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: corAzulEscuro),
+      appBar: AppBar(
+        backgroundColor: corAzulEscuro,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout, color: Colors.white),
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                (Route<dynamic> route) => false,
+              );
+            },
+          ),
+        ],
+      ),
       body: telas[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
